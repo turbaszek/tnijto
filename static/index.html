@@ -20,6 +20,12 @@
             font-size: 4em;
             line-height: .8em;
         }
+
+        div.center {
+            position: absolute;
+            top: 50%;
+            transform: translate(0%, -50%);
+        }
     </style>
 </head>
 <script>
@@ -72,7 +78,7 @@
 </script>
 <body>
     <div class="flex-centered">
-        <div class="container">
+        <div class="container center">
             <div class="columns">
                 <div class="column col-1 col-mx-auto">
                     <h1 class="text-dark massive">Shorten your link!</h1>
