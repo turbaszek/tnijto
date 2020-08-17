@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>TnijTo - link shortener</title>
+    <!-- CSS -->
     <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
     <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
     <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
@@ -40,11 +41,12 @@
     function submitForm() {
         let link = document.getElementById("link").value
         let name = document.getElementById("name").value
-        post("/new", {'link': link, 'name': name}, showLink)
+        if (link !== "") {
+            post("/new", {'link': link, 'name': name}, showLink)
+        }
     }
 
     function showLink(dataText) {
-        console.log(dataText)
         let data = JSON.parse(dataText)
         let url = data.GeneratedURL
 
@@ -60,7 +62,6 @@
 
     }
 
-    let linkForm = document.getElementById("link");
     window.addEventListener("keydown", function(event) {
         if (event.key === "Enter") {
             event.preventDefault();
