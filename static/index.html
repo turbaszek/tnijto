@@ -45,10 +45,15 @@
     }
 
     function submitForm() {
-        let link = document.getElementById("link").value
-        let name = document.getElementById("name").value
+        let linkElement = document.getElementById("link")
+        let nameElement = document.getElementById("name")
+        let link = linkElement.value
+        let name = nameElement.value
+
         if (link !== "") {
             post("/new", {'link': link, 'name': name}, showLink)
+            linkElement.value = ""
+            nameElement.value = ""
         }
     }
 
