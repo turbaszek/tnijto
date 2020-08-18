@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
-	utils "github.com/turbaszek/tnijto/pkg"
+	utils "github.com/turbaszek/tnijto/internal"
 	"log"
 	"net/http"
 	"time"
@@ -12,12 +12,11 @@ import (
 
 var config = utils.NewConfig()
 
-const port = 1317
-
 func main() {
-	log.Printf("The app is running under: http://%s:%d/", config.Hostname, port)
+	log.Printf("The app is running under: http://%s:%s/", config.Hostname, config.Port)
 
 	router := mux.NewRouter()
+	utils.NewFirestore(config.GcpProject)
 
 	router.Handle("/", http.FileServer(http.Dir("./static")))
 	router.HandleFunc("/new", submitNewLinkHandler)
@@ -27,7 +26,7 @@ func main() {
 
 	srv := &http.Server{
 		Handler: router,
-		Addr:    fmt.Sprintf(":%d", port),
+		Addr:    fmt.Sprintf(":%s", config.Port),
 		// Good practice: enforce timeouts for servers you create!
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
