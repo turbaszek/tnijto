@@ -1,3 +1,6 @@
+<p style="font-size: 25px" align=center">
+<a href="https://github.com/turbaszek/tnijto/workflows/CI/badge.svg?branch=master"><img src="https://github.com/turbaszek/tnijto/workflows/CI/badge.svg?branch=master" alt="master build"></a></p>
+
 # TnijTo
 
 Easy to deploy link shortener.
