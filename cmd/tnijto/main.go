@@ -12,7 +12,11 @@ import (
 
 var config = utils.NewConfig()
 
+const port = 1317
+
 func main() {
+	log.Printf("The app is running under: http://%s:%d/", config.Hostname, port)
+
 	router := mux.NewRouter()
 
 	router.Handle("/", http.FileServer(http.Dir("./static")))
@@ -23,7 +27,7 @@ func main() {
 
 	srv := &http.Server{
 		Handler: router,
-		Addr:    ":1317",
+		Addr:    fmt.Sprintf(":%d", port),
 		// Good practice: enforce timeouts for servers you create!
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
