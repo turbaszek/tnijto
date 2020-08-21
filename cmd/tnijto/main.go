@@ -4,22 +4,25 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
+	"github.com/thanhpk/randstr"
 	utils "github.com/turbaszek/tnijto/internal"
 	"log"
 	"net/http"
+	"net/url"
 	"time"
 )
 
 var config = utils.NewConfig()
+var fs = utils.NewFirestore(config.GcpProject)
 
 func main() {
 	log.Printf("The app is running under: http://%s:%s/", config.Hostname, config.Port)
 
 	router := mux.NewRouter()
-	utils.NewFirestore(config.GcpProject)
 
 	router.Handle("/", http.FileServer(http.Dir("./static")))
-	router.HandleFunc("/new", submitNewLinkHandler)
+	router.HandleFunc("/api/new", submitNewLinkHandler)
+	router.HandleFunc("/{.*}", redirectHandler)
 
 	router.Use(utils.LoggingMiddleware)
 	router.NotFoundHandler = utils.Handle404()
@@ -35,26 +38,29 @@ func main() {
 	log.Fatal(srv.ListenAndServe())
 }
 
-// Link represents the link
-type Link struct {
-	URL          string
-	Name         string
-	GeneratedURL string
-}
-
 func submitNewLinkHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
 	}
 
-	link := r.FormValue("link")
-	name := r.FormValue("name")
-	generated := fmt.Sprintf("https://%s/%s", config.Hostname, name)
+	if err := r.ParseForm(); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+	}
 
-	linkResponse := Link{link, name, generated}
+	originalURL := r.FormValue("originalURL")
+	id := r.FormValue("id")
 
-	js, err := json.Marshal(linkResponse)
+	if id == "" {
+		id = randstr.String(11)
+	}
+
+	generatedURL := fmt.Sprintf("https://%s/%s", config.Hostname, id)
+
+	l := utils.Link{URL: originalURL, ID: id, GeneratedURL: generatedURL}
+	fs.SaveLink(l)
+
+	js, err := json.Marshal(l)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -66,4 +72,28 @@ func submitNewLinkHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+}
+
+func redirectHandler(w http.ResponseWriter, r *http.Request) {
+	if r.RequestURI == "/favicon.ico" {
+		return
+	}
+	// Skip leading / in redirect link
+	id := r.RequestURI[1:]
+	link, err := fs.ReadLink(id)
+
+	if err != nil {
+		log.Printf("An error has occurred: %s", err)
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
+	}
+
+	u, err := url.QueryUnescape(link.URL)
+	if err != nil {
+		log.Printf("An error has occurred: %s", err)
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
+	}
+
+	http.Redirect(w, r, u, http.StatusMovedPermanently)
 }

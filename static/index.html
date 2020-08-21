@@ -51,7 +51,7 @@
         let name = nameElement.value
 
         if (link !== "") {
-            post("/new", {'link': link, 'name': name}, showLink)
+            post("/api/new", {'originalURL': link, 'id': name}, showLink)
             linkElement.value = ""
             nameElement.value = ""
         }
