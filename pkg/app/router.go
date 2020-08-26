@@ -1,21 +1,22 @@
-package main
+package app
 
 import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/thanhpk/randstr"
-	utils "github.com/turbaszek/tnijto/internal"
+	"github.com/turbaszek/tnijto/pkg/util"
 	"log"
 	"net/http"
 	"net/url"
 	"time"
 )
 
-var config = utils.NewConfig()
-var fs = utils.NewFirestore(config.GcpProject)
+var config = util.NewConfig()
+var fs = util.NewFirestore(config.GcpProject)
 
-func main() {
+// NewRouter creates instance of new tnijto router
+func NewRouter() *http.Server {
 	log.Printf("The app is running under: http://%s:%s/", config.Hostname, config.Port)
 
 	router := mux.NewRouter()
@@ -24,18 +25,16 @@ func main() {
 	router.HandleFunc("/api/new", submitNewLinkHandler)
 	router.HandleFunc("/{.*}", redirectHandler)
 
-	router.Use(utils.LoggingMiddleware)
-	router.NotFoundHandler = utils.Handle404()
+	router.Use(util.LoggingMiddleware)
+	router.NotFoundHandler = util.Handle404()
 
-	srv := &http.Server{
+	return &http.Server{
 		Handler: router,
 		Addr:    fmt.Sprintf(":%s", config.Port),
 		// Good practice: enforce timeouts for servers you create!
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
-
-	log.Fatal(srv.ListenAndServe())
 }
 
 func submitNewLinkHandler(w http.ResponseWriter, r *http.Request) {
@@ -57,7 +56,7 @@ func submitNewLinkHandler(w http.ResponseWriter, r *http.Request) {
 
 	generatedURL := fmt.Sprintf("https://%s/%s", config.Hostname, id)
 
-	l := utils.Link{URL: originalURL, ID: id, GeneratedURL: generatedURL}
+	l := util.Link{URL: originalURL, ID: id, GeneratedURL: generatedURL}
 	fs.SaveLink(l)
 
 	js, err := json.Marshal(l)

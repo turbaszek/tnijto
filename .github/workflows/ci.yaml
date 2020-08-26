@@ -34,4 +34,4 @@ jobs:
       - name: Get dependencies
         run: "go get -v -t -u -f ./..."
       - name: Build
-        run: go build -v ./cmd/tnijto
+        run: go build -v ./pkg
