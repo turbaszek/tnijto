@@ -25,7 +25,15 @@ go run -v ./pkg/tnijto.go
 
 ## Deployment
 
-Deploy the image using Google Cloud Build and deploy using Google Cloud Run:
+This deployment on GCP requires you to enable [Cloud Build](https://cloud.google.com/cloud-build)
+and [Cloud Run](https://cloud.google.com/run) services:
+```shell
+gcloud services enable cloudbuild.googleapis.com
+gcloud services enable run.googleapis.com
+```
+then go to https://console.cloud.google.com/firestore and enable native Firestore mode.
+
+Deploy the image using Cloud Build and deploy using Cloud Run:
 ```shell
 export PROJECT_ID="your-project-id"
 export REGION="europe-west1"
