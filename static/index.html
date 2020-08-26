@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TnijTo - link shortener</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+    <style>
+        /* 	Color palette:
+            Robot: 64F3D5
+            FF8B0D orangey
+            FF0000 red
+            49E80C green
+            960DFF purple  */
+
+        h1.massive {
+            font-weight: 900;
+            font-size: 4em;
+            line-height: .8em;
+        }
+
+        div.center {
+            position: absolute;
+            top: 50%;
+            transform: translate(0%, -50%);
+        }
+    </style>
+</head>
+<script>
+    function post(url, data, success) {
+        let params = typeof data == 'string' ? data : Object.keys(data).map(
+            function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
+        ).join('&');
+
+        let xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+        xhr.open('POST', url);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState>3 && xhr.status==200) { success(xhr.responseText); }
+        };
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(params);
+        return xhr;
+    }
+
+    function submitForm() {
+        let linkElement = document.getElementById("link")
+        let nameElement = document.getElementById("name")
+        let link = linkElement.value
+        let name = nameElement.value
+
+        if (link !== "") {
+            post("/api/new", {'originalURL': link, 'id': name}, showLink)
+            linkElement.value = ""
+            nameElement.value = ""
+        }
+    }
+
+    function showLink(dataText) {
+        let data = JSON.parse(dataText)
+        let url = data.GeneratedURL
+
+        let msg = document.getElementById("generated-url");
+        let generatedURL = document.getElementById("generated-url-value");
+
+        if (msg.style.display === "none") {
+            msg.style.display = "block";
+            generatedURL.textContent = url;
+        } else {
+            generatedURL.textContent = url;
+        }
+
+    }
+
+    window.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            submitForm();
+        }
+    });
+
+</script>
+<body>
+    <div class="flex-centered">
+        <div class="container center">
+            <div class="columns">
+                <div class="column col-1 col-mx-auto">
+                    <h1 class="text-dark massive">Shorten your link!</h1>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column col-3 col-mx-auto">
+                    <div class="input-group">
+                        <input id="link" type="text" class="form-input input-lg" placeholder="Terribly long link...">
+                        <button id="link-btn" class="btn btn-primary input-group-btn btn-lg" onclick="submitForm()">Submit</button>
+                    </div>
+                    <input class="form-input input-sm" id="name" type="text" value="" placeholder="Fancy short name..."/>
+
+                    <p id="generated-url" style="display: none">Your link <cite id="generated-url-value"></cite></p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

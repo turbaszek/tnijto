@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-python@v1
       - uses: actions/setup-go@v2-beta
         with:
-          go-version: 1.13
+          go-version: 1.15
       - name: install go-lint
         run: |
           go get -u golang.org/x/lint/golint
@@ -31,8 +31,8 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v2-beta
         with:
-          go-version: 1.13
+          go-version: 1.15
       - name: Get dependencies
-        run: "go get -v -t -d ./..."
+        run: go mod download
       - name: Build
-        run: go build -v ./cmd/tnijto
+        run: go build -v ./pkg/tnijto.go
