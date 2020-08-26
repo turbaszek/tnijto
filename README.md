@@ -16,9 +16,9 @@ Easy to deploy link shortener.
 
 To run the app just do:
 ```
-go run ./cmd/tnijto
+export GCP_PROJECT="your-project-id"
+go run -v ./pkg/tnijto.go
 ```
-It should be accessible under http://localhost:1317/
 
 ## Contributing
 
