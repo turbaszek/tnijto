@@ -10,6 +10,7 @@ Easy to deploy link shortener.
 **Table of Contents**
 
 - [Development](#development)
+- [Deployment](#deployment)
 - [Contributing](#contributing)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -17,14 +18,25 @@ Easy to deploy link shortener.
 ## Development
 
 To run the app just do:
-```
+```shell
 export GCP_PROJECT="your-project-id"
 go run -v ./pkg/tnijto.go
 ```
 
+## Deployment
+
+Deploy the image using Google Cloud Build and deploy using Google Cloud Run:
+```shell
+export PROJECT_ID="your-project-id"
+export REGION="europe-west1"
+export TAG="gcr.io/${PROJECT_ID}/tnijto"
+gcloud builds submit --tag $TAG
+gcloud run deploy tnijto --image $TAG --region $REGION --set-env-vars "GCP_PROJECT=${PROJECT_ID}" --platform managed --allow-unauthenticated
+```
+
 ## Contributing
 
-We welcome all contributions! Please submit an issue or PR no matter if it's bug or a typo.
+We welcome all contributions! Please submit an issue or PR no matter if it's a bug or a typo.
 
 This project is using [pre-commits](https://pre-commit.com) to ensure the
 quality of the code. To install pre-commits just do:

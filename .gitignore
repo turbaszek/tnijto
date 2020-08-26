@@ -15,5 +15,8 @@ tnijto
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
+# Secrets and other
+/keys
+
 # Dependency directories (remove the comment below to include it)
 # vendor/

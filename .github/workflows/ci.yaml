@@ -36,3 +36,11 @@ jobs:
         run: go mod download
       - name: Build
         run: go build -v ./pkg/tnijto.go
+
+  build-docker:
+    name: Build Docker
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: docker build .
