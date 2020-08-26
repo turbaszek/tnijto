@@ -37,10 +37,37 @@ Deploy the image using Cloud Build and deploy using Cloud Run:
 ```shell
 export PROJECT_ID="your-project-id"
 export REGION="europe-west1"
+export SERVICE="tnijto"
 export TAG="gcr.io/${PROJECT_ID}/tnijto"
 gcloud builds submit --tag $TAG
-gcloud run deploy tnijto --image $TAG --region $REGION --set-env-vars "GCP_PROJECT=${PROJECT_ID}" --platform managed --allow-unauthenticated
+gcloud run deploy $SERVICE \
+  --image $TAG \
+  --region $REGION \
+  --set-env-vars "GCP_PROJECT=${PROJECT_ID}" \
+  --platform managed \
+  --no-allow-unauthenticated
 ```
+
+<!--
+If you wish to limit access to authenticated user run
+```shell
+gcloud run services add-iam-policy-binding $SERVICE \
+  --member="allAuthenticatedUsers" \
+  --role="roles/run.invoker" \
+  --platform managed \
+  --region $REGION
+```
+
+To limit access to people from single domain run
+```shell
+export DOMAIN="google.com"
+gcloud run services add-iam-policy-binding $SERVICE \
+  --member="domain:${DOMAIN} \
+  --role="roles/run.invoker" \
+  --platform managed \
+  --region $REGION
+```
+-->
 
 ## Contributing
 
