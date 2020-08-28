@@ -100,6 +100,8 @@ func redirectHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Update views count in async manner
+	go fs.UpdateViewsCount(link)
 	http.Redirect(w, r, u, http.StatusMovedPermanently)
 }
 
