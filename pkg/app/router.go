@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"strings"
 	"time"
 )
 
@@ -33,7 +34,7 @@ func NewRouter() *http.Server {
 		Addr:    fmt.Sprintf(":%s", config.Port),
 		// Good practice: enforce timeouts for servers you create!
 		WriteTimeout: 15 * time.Second,
-		ReadTimeout:  15 * time.Second,
+		ReadTimeout:  5 * time.Second,
 	}
 }
 
@@ -61,7 +62,7 @@ func submitNewLinkHandler(w http.ResponseWriter, r *http.Request) {
 
 	js, err := json.Marshal(l)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
@@ -74,25 +75,28 @@ func submitNewLinkHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func redirectHandler(w http.ResponseWriter, r *http.Request) {
+	var link util.Link
 	if r.RequestURI == "/favicon.ico" {
 		return
 	}
-	// Skip leading / in redirect link
-	id := r.RequestURI[1:]
-	link, err := fs.ReadLink(id)
+	linkID := strings.TrimLeft(r.RequestURI, "/")
+	err := fs.ReadLink(linkID, &link)
 
 	if err != nil {
-		log.Printf("An error has occurred: %s", err)
-		http.Redirect(w, r, "/", http.StatusSeeOther)
+		handleErrorWithRedirect(w, r, err)
 		return
 	}
 
 	u, err := url.QueryUnescape(link.URL)
 	if err != nil {
-		log.Printf("An error has occurred: %s", err)
-		http.Redirect(w, r, "/", http.StatusSeeOther)
+		handleErrorWithRedirect(w, r, err)
 		return
 	}
 
 	http.Redirect(w, r, u, http.StatusMovedPermanently)
+}
+
+func handleErrorWithRedirect(w http.ResponseWriter, r *http.Request, err error) {
+	log.Printf("An error has occurred: %s", err)
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
