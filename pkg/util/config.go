@@ -4,8 +4,16 @@ import "os"
 
 // EnvConfig represents app configuration
 type EnvConfig struct {
-	Hostname   string
-	Port       string
+	// Hostname is used to construct redirect link
+	// For example http://{Hostname}/happiness
+	Hostname string
+
+	// Port is used to construct redirect link
+	// For example http://{Hostname}:{Port}/happiness
+	Port string
+
+	// GcpProject should have the value of Google Cloud project
+	// that will be used to store data in Firestore
 	GcpProject string
 }
 

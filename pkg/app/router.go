@@ -47,15 +47,15 @@ func submitNewLinkHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	originalURL := r.FormValue("originalURL")
-	id := r.FormValue("id")
+	value := r.FormValue("value")
 
 	// To avoid redirect loop
-	if originalURL == id {
-		http.Error(w, "Link id must be different than url", http.StatusBadRequest)
+	if originalURL == value {
+		http.Error(w, "Link value must be different than url", http.StatusBadRequest)
 		return
 	}
 
-	l := util.NewLink(originalURL, id)
+	l := util.NewLink(originalURL, value)
 	if err := fs.SaveLink(l); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -80,9 +80,8 @@ func redirectHandler(w http.ResponseWriter, r *http.Request) {
 	if r.RequestURI == "/favicon.ico" {
 		return
 	}
-	linkID := strings.TrimLeft(r.RequestURI, "/")
-
-	if err := fs.ReadLink(linkID, &link); err != nil {
+	value := strings.TrimLeft(r.RequestURI, "/")
+	if err := fs.ReadLink(value, &link); err != nil {
 		handleErrorWithRedirect(w, r, err)
 		return
 	}
@@ -94,8 +93,8 @@ func redirectHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// To avoid redirect loop
-	if link.URL == link.ID {
-		http.Error(w, "Link id must be different than url", http.StatusBadRequest)
+	if link.URL == link.Value {
+		http.Error(w, "Alternative url value must be different than the url", http.StatusBadRequest)
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
 	}
