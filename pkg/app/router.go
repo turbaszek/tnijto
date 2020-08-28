@@ -80,9 +80,8 @@ func redirectHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	linkID := strings.TrimLeft(r.RequestURI, "/")
-	err := fs.ReadLink(linkID, &link)
 
-	if err != nil {
+	if err := fs.ReadLink(linkID, &link); err != nil {
 		handleErrorWithRedirect(w, r, err)
 		return
 	}
