@@ -3,6 +3,8 @@ package util
 import (
 	"cloud.google.com/go/firestore"
 	"context"
+	"fmt"
+	"github.com/thanhpk/randstr"
 	"log"
 	"net/url"
 )

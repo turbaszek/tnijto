@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
-	"github.com/thanhpk/randstr"
 	"github.com/turbaszek/tnijto/pkg/util"
 	"log"
 	"net/http"
@@ -13,12 +12,11 @@ import (
 	"time"
 )
 
-var config = util.NewConfig()
-var fs = util.NewFirestore(config.GcpProject)
+var fs = util.NewFirestore(util.Config.GcpProject)
 
 // NewRouter creates instance of new tnijto router
 func NewRouter() *http.Server {
-	log.Printf("The app is running under: http://%s:%s/", config.Hostname, config.Port)
+	log.Printf("The app is running under: http://%s:%s/", util.Config.Hostname, util.Config.Port)
 
 	router := mux.NewRouter()
 
@@ -31,7 +29,7 @@ func NewRouter() *http.Server {
 
 	return &http.Server{
 		Handler: router,
-		Addr:    fmt.Sprintf(":%s", config.Port),
+		Addr:    fmt.Sprintf(":%s", util.Config.Port),
 		// Good practice: enforce timeouts for servers you create!
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  5 * time.Second,
@@ -51,14 +49,17 @@ func submitNewLinkHandler(w http.ResponseWriter, r *http.Request) {
 	originalURL := r.FormValue("originalURL")
 	id := r.FormValue("id")
 
-	if id == "" {
-		id = randstr.String(11)
+	// To avoid redirect loop
+	if originalURL == id {
+		http.Error(w, "Link id must be different than url", http.StatusBadRequest)
+		return
 	}
 
-	generatedURL := fmt.Sprintf("https://%s/%s", config.Hostname, id)
-
-	l := util.Link{URL: originalURL, ID: id, GeneratedURL: generatedURL}
-	fs.SaveLink(l)
+	l := util.NewLink(originalURL, id)
+	if err := fs.SaveLink(l); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
 	js, err := json.Marshal(l)
 	if err != nil {
@@ -89,6 +90,13 @@ func redirectHandler(w http.ResponseWriter, r *http.Request) {
 	u, err := url.QueryUnescape(link.URL)
 	if err != nil {
 		handleErrorWithRedirect(w, r, err)
+		return
+	}
+
+	// To avoid redirect loop
+	if link.URL == link.ID {
+		http.Error(w, "Link id must be different than url", http.StatusBadRequest)
+		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
 	}
 
