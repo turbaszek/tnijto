@@ -47,11 +47,11 @@
     function submitForm() {
         let linkElement = document.getElementById("link")
         let nameElement = document.getElementById("name")
-        let link = linkElement.value
-        let name = nameElement.value
+        let linkURL = linkElement.value
+        let value = nameElement.value
 
-        if (link !== "") {
-            post("/api/new", {'originalURL': link, 'id': name}, showLink)
+        if (linkURL !== "") {
+            post("/api/new", {'originalURL': linkURL, 'value': value}, showLink)
             linkElement.value = ""
             nameElement.value = ""
         }
