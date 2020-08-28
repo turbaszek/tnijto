@@ -7,7 +7,7 @@ TAG ?= "gcr.io/${PROJECT_ID}/tnijto"
 
 all: setup deploy
 
-deploy: publish run
+deploy: cloud-build cloud-run
 
 # Setup
 setup:
@@ -15,11 +15,11 @@ setup:
 	gcloud services enable run.googleapis.com
 
 # Build on Cloud Build
-publish:
+cloud-build:
 	gcloud builds submit --tag ${TAG}
 
 # Deploy on Cloud Run
-run:
+cloud-run:
 	gcloud run deploy ${SERVICE} \
 	  --image ${TAG} \
 	  --region ${REGION} \
@@ -30,6 +30,10 @@ run:
 # Build locally
 build:
 	go build -v ./pkg/tnijto.go
+
+# Run locally
+run:
+	go run -v ./pkg/tnijto.go
 
 # Build local docker image
 docker:
