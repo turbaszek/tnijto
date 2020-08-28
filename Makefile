@@ -1,8 +1,6 @@
-SERVICE ?= tnijto
-
 PROJECT_ID ?= "your-project-id"
 REGION ?= "europe-west1"
-SERVICE ?= ?"tnijto"
+SERVICE ?= "tnijto"
 TAG ?= "gcr.io/${PROJECT_ID}/tnijto"
 
 all: setup deploy
