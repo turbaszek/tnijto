@@ -19,7 +19,7 @@ Easy to deploy link shortener.
 
 To run the app just do:
 ```shell
-GCP_PROJECT="your-project-id" make build
+PROJECT_ID="your-project-id" make build
 ```
 
 ## Deployment

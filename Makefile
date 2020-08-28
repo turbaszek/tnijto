@@ -23,7 +23,7 @@ run:
 	gcloud run deploy ${SERVICE} \
 	  --image ${TAG} \
 	  --region ${REGION} \
-	  --set-env-vars "GCP_PROJECT=${PROJECT_ID}" \
+	  --set-env-vars "PROJECT_ID=${PROJECT_ID}" \
 	  --platform managed \
 	  --allow-unauthenticated
 

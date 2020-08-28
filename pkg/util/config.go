@@ -24,6 +24,6 @@ func NewConfig() EnvConfig {
 	return EnvConfig{
 		Hostname:   LookupEnvWithDefault("HOSTNAME", "localhost"),
 		Port:       LookupEnvWithDefault("PORT", "1317"),
-		GcpProject: LookupEnvWithDefault("GCP_PROJECT", "test"),
+		GcpProject: LookupEnvWithDefault("PROJECT_ID", "test"),
 	}
 }
