@@ -10,6 +10,7 @@ Easy to deploy link shortener.
 **Table of Contents**
 
 - [Development](#development)
+- [Deployment](#deployment)
 - [Contributing](#contributing)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -17,14 +18,53 @@ Easy to deploy link shortener.
 ## Development
 
 To run the app just do:
+```shell
+PROJECT_ID="your-project-id" make build
 ```
-export GCP_PROJECT="your-project-id"
-go run -v ./pkg/tnijto.go
+
+## Deployment
+
+First authenticate using:
+```shell
+gcloud auth login
 ```
+
+To deploy TnijTo on Google Cloud you have to enable [Cloud Build](https://cloud.google.com/cloud-build)
+and [Cloud Run](https://cloud.google.com/run) services:
+```shell
+make setup
+```
+then go to https://console.cloud.google.com/firestore and enable native Firestore mode.
+
+Deploy the image using Cloud Build and deploy using Cloud Run:
+```shell
+PROJECT_ID="your-project-id" REGION="europe-west1" make deploy
+```
+
+<!--
+If you wish to limit access to authenticated user run
+```shell
+gcloud run services add-iam-policy-binding $SERVICE \
+  --member="allAuthenticatedUsers" \
+  --role="roles/run.invoker" \
+  --platform managed \
+  --region $REGION
+```
+
+To limit access to people from single domain run
+```shell
+export DOMAIN="google.com"
+gcloud run services add-iam-policy-binding $SERVICE \
+  --member="domain:${DOMAIN} \
+  --role="roles/run.invoker" \
+  --platform managed \
+  --region $REGION
+```
+-->
 
 ## Contributing
 
-We welcome all contributions! Please submit an issue or PR no matter if it's bug or a typo.
+We welcome all contributions! Please submit an issue or PR no matter if it's a bug or a typo.
 
 This project is using [pre-commits](https://pre-commit.com) to ensure the
 quality of the code. To install pre-commits just do:
@@ -33,4 +73,4 @@ pip install pre-commit
 # or
 brew install pre-commit
 ```
-And then from project directory run `pre-commit install`.
+Then from project directory run `pre-commit install`.
