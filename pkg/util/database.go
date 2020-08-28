@@ -47,15 +47,14 @@ func (fs *Firestore) SaveLink(link Link) {
 }
 
 // ReadLink retrieves link information from Firestore
-func (fs *Firestore) ReadLink(id string) (*Link, error) {
-	var link *Link
+func (fs *Firestore) ReadLink(id string, link *Link) error {
 	dsnap, err := fs.DB.Collection(linkCollection).Doc(id).Get(fs.Ctx)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	if err = dsnap.DataTo(&link); err != nil {
-		return nil, err
+		return err
 	}
-	return link, nil
+	return nil
 }
