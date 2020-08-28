@@ -24,7 +24,12 @@ PROJECT_ID="your-project-id" make build
 
 ## Deployment
 
-This deployment on GCP requires you to enable [Cloud Build](https://cloud.google.com/cloud-build)
+First authenticate using:
+```shell
+gcloud auth login
+```
+
+To deploy TnijTo on Google Cloud you have to enable [Cloud Build](https://cloud.google.com/cloud-build)
 and [Cloud Run](https://cloud.google.com/run) services:
 ```shell
 make setup
