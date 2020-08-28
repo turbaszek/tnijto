@@ -21,6 +21,7 @@ To run the app just do:
 ```shell
 PROJECT_ID="your-project-id" make build
 ```
+where `PROJECT_ID` is the id of Google Cloud project you want to use.
 
 ## Deployment
 
@@ -40,6 +41,7 @@ Deploy the image using Cloud Build and deploy using Cloud Run:
 ```shell
 PROJECT_ID="your-project-id" REGION="europe-west1" make deploy
 ```
+where `PROJECT_ID` is the id of Google Cloud project you want to use.
 
 <!--
 If you wish to limit access to authenticated user run
