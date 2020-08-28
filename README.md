@@ -19,8 +19,7 @@ Easy to deploy link shortener.
 
 To run the app just do:
 ```shell
-export GCP_PROJECT="your-project-id"
-go run -v ./pkg/tnijto.go
+GCP_PROJECT="your-project-id" make build
 ```
 
 ## Deployment
@@ -28,24 +27,13 @@ go run -v ./pkg/tnijto.go
 This deployment on GCP requires you to enable [Cloud Build](https://cloud.google.com/cloud-build)
 and [Cloud Run](https://cloud.google.com/run) services:
 ```shell
-gcloud services enable cloudbuild.googleapis.com
-gcloud services enable run.googleapis.com
+make setup
 ```
 then go to https://console.cloud.google.com/firestore and enable native Firestore mode.
 
 Deploy the image using Cloud Build and deploy using Cloud Run:
 ```shell
-export PROJECT_ID="your-project-id"
-export REGION="europe-west1"
-export SERVICE="tnijto"
-export TAG="gcr.io/${PROJECT_ID}/tnijto"
-gcloud builds submit --tag $TAG
-gcloud run deploy $SERVICE \
-  --image $TAG \
-  --region $REGION \
-  --set-env-vars "GCP_PROJECT=${PROJECT_ID}" \
-  --platform managed \
-  --no-allow-unauthenticated
+PROJECT_ID="your-project-id" REGION="europe-west1" make deploy
 ```
 
 <!--
@@ -80,4 +68,4 @@ pip install pre-commit
 # or
 brew install pre-commit
 ```
-And then from project directory run `pre-commit install`.
+Then from project directory run `pre-commit install`.
