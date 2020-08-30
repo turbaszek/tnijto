@@ -19,7 +19,7 @@ Easy to deploy link shortener.
 
 To run the app just do:
 ```shell
-PROJECT_ID="your-project-id" make build
+PROJECT_ID="your-project-id" make run
 ```
 where `PROJECT_ID` is the id of Google Cloud project you want to use.
 
