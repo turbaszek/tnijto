@@ -23,6 +23,10 @@ header {
     padding: 0 40px;
 }
 
+header #logo {
+    position: relative;
+}
+
 header #logo h1 {
     background-color: white;
     width: 72px;
@@ -40,10 +44,10 @@ header #logo h1 {
     height: 0;
     border-left: 40px solid transparent;
     border-right: 40px solid transparent;
-    border-bottom: 107px solid #97001B;
+    border-bottom: 72px solid #97001B;
     position: absolute;
-    left: 90px;
-    top: 14px;
+    left: 45px;
+    top: 0px;
 }
 
 header #switch-holder {
