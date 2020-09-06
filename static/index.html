@@ -45,8 +45,8 @@
         <div class="form-holder">
             <form action="">
                 <input type="text" placeholder="Długi i brzydki URI" id="link" autofocus />
-                <a href="#tailored-cut-wrapper" class="" data-toggle="collapse">
-                    Tnij na wymiar!<i class="fas fa-plus-circle"></i>
+                <a href="#tailored-cut-wrapper" id="show-tailored-cut" data-toggle="collapse">
+                    Tnij na wymiar!<i class="fas fa-plus-circle" id="tailored-cut-icon"></i>
                 </a>
                 <div id="tailored-cut-wrapper" class="collapse">
                     <div>
@@ -143,6 +143,17 @@
         document.getElementById("submit-button").addEventListener("click", function(event){
             event.preventDefault()
             submitForm()
+        });
+
+        document.getElementById("show-tailored-cut").addEventListener("click", function(event){
+            let icon = document.getElementById("tailored-cut-icon")
+
+            if (icon.classList.contains("fa-plus-circle")) {
+                icon.classList.replace("fa-plus-circle", "fa-minus-circle")
+
+            } else {
+                icon.classList.replace("fa-minus-circle", "fa-plus-circle")
+            }
         });
 
     </script>

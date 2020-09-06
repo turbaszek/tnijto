@@ -149,7 +149,7 @@ main form a i {
 }
 
 main form a:hover i {
-    transform: rotate(90deg);
+    transform: rotate(180deg);
 }
 
 main input {
