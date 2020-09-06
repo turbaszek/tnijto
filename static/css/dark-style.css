@@ -1,0 +1,241 @@
+
+html, body {
+    height: 100%;
+    background-color: #303030;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: #424242;
+    height: 10%;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+}
+
+header #logo h1 {
+    background-color: white;
+    width: 72px;
+    height: 72px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+    font-family: 'Nosifer', cursive;
+    color: #303030;
+}
+
+.triangle-up {
+    width: 0;
+    height: 0;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-bottom: 107px solid #424242;
+    position: absolute;
+    left: 90px;
+    top: 14px;
+}
+
+heder #switch-holder {
+}
+
+main {
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+main .banner {
+    display: flex;
+    flex-direction: column;
+    width: 960px;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+main .banner h1 {
+    font-family: 'Nosifer', cursive;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 6em;
+    background-color: white;
+    color: #303030;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+main .banner h3 {
+    font-size: 3em;
+    width: 100%;
+    font-family: 'Titillium Web', sans-serif;
+    color: white;
+    margin-bottom: 20px;
+}
+
+main .banner p {
+    font-family: 'Titillium Web', sans-serif;
+    color: white;
+    line-height: 1.5em;
+    font-size: 0.9em;
+}
+
+main .banner * {
+    max-width: 70%;
+    text-align: center;
+}
+
+hr {
+    border-bottom: 1px solid white;
+    width: 960px;
+    width: 15%;
+}
+
+main .form-holder {
+    display: flex;
+    justify-content: center;
+    width: 960px;
+    margin-top: 60px;
+}
+
+main form {
+    flex-direction: column;
+    display: flex;
+    max-width: 70%;
+    width: 960px;
+}
+
+main form * {
+}
+
+main form a {
+    display: block;
+    color: white;
+    text-align: center;
+    font-size: 1.2em;
+    font-family: 'Titillium Web', sans-serif;
+    margin-bottom: 10px;
+}
+
+main form a:hover, a:focus, a:visited {
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    outline: 0;
+    box-shadow: none;
+}
+
+main form a i {
+    transition-duration: 0.3s;
+    transition-property: transform;
+    margin-left: 10px;
+}
+
+main form a:hover i {
+    transform: rotate(90deg);
+}
+
+main input {
+    min-width: 400px;
+    max-width: 960px;
+    margin-bottom: 10px;
+    height: 60px;
+    border-radius: 3px;
+    border: 3px solid white;
+    background-color: rgba(255, 255, 255, 0.0);
+    padding: 20px;
+    line-height: 1.5em;
+    font-size: 1.5em;
+    transition: all 0.3s ease-in-out;
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 300;
+    color: white;
+    box-shadow: 0 0 0 white;
+}
+
+main form #tailored-cut {
+    width: 100%;
+}
+
+main form #tailored-cut input {
+    width: 100%;
+}
+
+::placeholder {
+    color: #cecece;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #efefef;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: #efefef;
+}
+
+main input:hover {
+    box-shadow: 0 0 10px white;
+    cursor: pointer;
+}
+
+main input:focus {
+    box-shadow: 0 0 10px white;
+    border: 3px solid white;
+    background-color: white;
+    outline: none;
+    color: #303030;
+}
+
+main button {
+    height: 60px;
+    color: #ffffff;
+    background-color: #424242;
+    border: 3px solid rgba(255, 255, 255, 1);
+    border-radius: 3px;
+    font-size: 1.5em;
+    font-family: 'Nosifer', cursive;
+    transition: all 0.3s ease-in-out;
+}
+
+main button:hover, button:focus {
+    background-color: white;
+    color: #303030;
+    cursor: pointer;
+    outline: none;
+}
+
+footer {
+    display: flex;
+    height: 5%;
+    background-color: #424242;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5em;
+}
+
+footer i {
+    box-shadow: 0 0 0 white;
+    transition: all 0.3s ease-in-out;
+    border-radius: 50%;
+}
+
+footer i:hover {
+    box-shadow: 0 0 20px white;
+}
+
+.flex-centered {
+    height: 100%;
+}
+
+div.center {
+    /*position: absolute;*/
+    /*top: 50%;*/
+    /*transform: translate(0%, -50%);*/
+}

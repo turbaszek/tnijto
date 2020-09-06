@@ -22,7 +22,8 @@ func NewRouter() *http.Server {
 
 	router.Handle("/", http.FileServer(http.Dir("./static")))
 	router.HandleFunc("/api/new", submitNewLinkHandler)
-	router.HandleFunc("/{.*}", redirectHandler)
+	router.Handle("/{.*}/{.*}", http.FileServer(http.Dir("./static")))
+	router.HandleFunc("/{[a-zA-Z0-9\\-_]*}", redirectHandler)
 
 	router.Use(LoggingMiddleware)
 	router.NotFoundHandler = Handle404()
