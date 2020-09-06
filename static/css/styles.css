@@ -46,7 +46,8 @@ header #logo h1 {
     top: 14px;
 }
 
-heder #switch-holder {
+header #switch-holder {
+    width: 200px;
 }
 
 main {
@@ -106,7 +107,8 @@ hr {
 
 main .form-holder {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     width: 960px;
     margin-top: 60px;
 }
@@ -116,6 +118,8 @@ main form {
     display: flex;
     max-width: 70%;
     width: 960px;
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 300;
 }
 
 main form * {
@@ -160,14 +164,32 @@ main input {
     line-height: 1.5em;
     font-size: 1.5em;
     transition: all 0.3s ease-in-out;
-    font-family: 'Titillium Web', sans-serif;
-    font-weight: 300;
+
     color: white;
     box-shadow: 0 0 0 white;
 }
 
 main form #tailored-cut {
     width: 100%;
+}
+
+main form #tailored-cut-wrapper div {
+    display: flex;
+    justify-content: space-between;
+}
+
+main form #tailored-cut-wrapper div div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main form #tailored-cut-wrapper div div p {
+    margin-right: 10px;
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 300;
+    font-size: 1.5em;
+    color: white;
 }
 
 main form #tailored-cut input {
@@ -208,6 +230,7 @@ main button {
     font-size: 1.5em;
     font-family: 'Nosifer', cursive;
     transition: all 0.3s ease-in-out;
+    margin-bottom: 20px;
 }
 
 main button:hover, button:focus {
@@ -236,12 +259,53 @@ footer i:hover {
     box-shadow: 0 0 20px white;
 }
 
-.flex-centered {
-    height: 100%;
+#messages-wrap {
+    width: 960px;
+    max-width: 70%;
+    border-radius: 3px;
 }
 
-div.center {
-    /*position: absolute;*/
-    /*top: 50%;*/
-    /*transform: translate(0%, -50%);*/
+#messages-wrap i {
+    width: 10%;
+    height: 100%;
+    display: flex;
+    font-size: 2em;
+    line-height: 2em;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+#error-message {
+    background-color: white;
+    width: 100%;
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+    height: 100%;
+    padding: 10px;
+    margin: 0;
+    font-size: 1.5em;
+    font-family: "Titillium Web", sans-serif;
+    color: #bd0020;
+}
+
+.warn {
+    background-color: #e7e707;
+}
+
+.red {
+    color: #bd0020;
+}
+
+.hidden {
+    display: none;
+}
+
+.flex {
+    display: flex;
+}
+
+#messages-wrap .messages {
+    width: 90%;
 }

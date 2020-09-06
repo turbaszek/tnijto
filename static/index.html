@@ -19,60 +19,6 @@
     <script src="https://kit.fontawesome.com/fdd938fea1.js" crossorigin="anonymous"></script>
 
 </head>
-
-<script>
-    function post(url, data, success) {
-        let params = typeof data == 'string' ? data : Object.keys(data).map(
-            function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
-        ).join('&');
-
-        let xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
-        xhr.open('POST', url);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState>3 && xhr.status==200) { success(xhr.responseText); }
-        };
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.send(params);
-        return xhr;
-    }
-
-    function submitForm() {
-        let linkElement = document.getElementById("link")
-        let nameElement = document.getElementById("name")
-        let linkURL = linkElement.value
-        let value = nameElement.value
-
-        if (linkURL !== "") {
-            post("/api/new", {'originalURL': linkURL, 'value': value}, showLink)
-            linkElement.value = ""
-            nameElement.value = ""
-        }
-    }
-
-    function showLink(dataText) {
-        let data = JSON.parse(dataText)
-        let url = data.GeneratedURL
-
-        let msg = document.getElementById("generated-url");
-        let generatedURL = document.getElementById("generated-url-value");
-
-        if (msg.style.display === "none") {
-            msg.style.display = "block";
-            generatedURL.textContent = url;
-        } else {
-            generatedURL.textContent = url;
-        }
-
-    }
-
-    window.addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            submitForm();
-        }
-    });
-
-</script>
 <body>
     <header>
         <div id="logo">
@@ -98,17 +44,26 @@
         <hr>
         <div class="form-holder">
             <form action="">
-                <input type="text" placeholder="Długi i brzydki URI" autofocus />
-                <div>
-                    <a href="#tailored-cut" class="" data-toggle="collapse">
-                        Tnij na wymiar!<i class="fas fa-plus-circle"></i></a>
-                    <div id="tailored-cut" class="collapse">
-                        <input type="text" placeholder="Link na wymiar">
+                <input type="text" placeholder="Długi i brzydki URI" id="link" autofocus />
+                <a href="#tailored-cut-wrapper" class="" data-toggle="collapse">
+                    Tnij na wymiar!<i class="fas fa-plus-circle"></i>
+                </a>
+                <div id="tailored-cut-wrapper" class="collapse">
+                    <div>
+                        <div>
+                            <p>http://tnij.to/</p>
+                        </div>
+                        <div id="tailored-cut">
+                            <input type="text" id="name" placeholder="Link na wymiar">
+                        </div>
                     </div>
                 </div>
-<!--                <input type="text" placeholder="Enter your new link value or leave empty for random link value" >*/ -->
-                <button>Tnij!</button>
+                <button id="submit-button">Tnij!</button>
             </form>
+            <div id="messages-wrap" class="hidden">
+                <i class="fas fa-exclamation-circle warn red"></i>
+                <p id="error-message"></p>
+            </div>
         </div>
     </main>
     <footer>
@@ -116,6 +71,81 @@
             <i class="fab fa-github"></i>
         </a>
     </footer>
+
+    <script>
+        const emptyInput = "Musisz podać jakiś URL."
+
+        function post(url, data, success) {
+            let params = typeof data == 'string' ? data : Object.keys(data).map(
+                function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) }
+            ).join('&');
+
+            let xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+            xhr.open('POST', url);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState>3 && xhr.status==200) { success(xhr.responseText); }
+            };
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send(params);
+            return xhr;
+        }
+
+        function submitForm() {
+            let linkElement = document.getElementById("link")
+            let nameElement = document.getElementById("name")
+            let linkURL = linkElement.value
+            let value = nameElement.value
+
+            if (linkURL !== "") {
+                post("/api/new", {'originalURL': linkURL, 'value': value}, showLink)
+                linkElement.value = ""
+                nameElement.value = ""
+
+            } else {
+                showMessage()
+            }
+        }
+
+        function showLink(dataText) {
+            let data = JSON.parse(dataText)
+            console.log("Data txt: " + data)
+            let url = data.GeneratedURL
+
+            let msg = document.getElementById("generated-url");
+            let generatedURL = document.getElementById("generated-url-value");
+
+            if (msg.style.display === "none") {
+                msg.style.display = "block";
+                generatedURL.textContent = url;
+            } else {
+                generatedURL.textContent = url;
+            }
+
+        }
+
+        function showMessage() {
+            let messages = document.getElementById("messages-wrap");
+
+            if(messages.classList.contains("hidden")) {
+                messages.classList.remove("hidden")
+                messages.classList.add("flex")
+                document.getElementById("error-message").textContent = emptyInput
+            }
+        }
+
+        window.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                submitForm();
+            }
+        });
+
+        document.getElementById("submit-button").addEventListener("click", function(event){
+            event.preventDefault()
+            submitForm()
+        });
+
+    </script>
 </body>
 </html>
 
