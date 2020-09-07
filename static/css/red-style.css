@@ -1,11 +1,3 @@
-
-/* 	Color palette:
-    Robot: 64F3D5
-    FF8B0D orangey
-    FF0000 red
-    49E80C green
-    #bd0020 red!  */
-
 html, body {
     height: 100%;
     background-color: #bd0020;
@@ -51,7 +43,70 @@ header #logo h1 {
 }
 
 header #switch-holder {
-    width: 200px;
+    display: flex;
+    align-items: center;
+    height: 72px;
+}
+
+.onoffswitch {
+    position: relative; width: 140px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border-radius: 20px;
+}
+.onoffswitch-inner {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block;
+    float: left;
+    width: 50%;
+    height: 39px;
+    padding: 0;
+    line-height: 39px;
+    font-size: 14px;
+    color: white;
+    font-family: Trebuchet, Arial, sans-serif;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "Bloody Red";
+    padding-left: 10px;
+    background-color: #BD0020; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "Dark Night";
+    padding-right: 10px;
+    background-color: #141313; color: #FFFFFF;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block;
+    width: 32px; height: 32px;
+    margin: 1.5px;
+    background: #FFFFFF;
+    position: absolute; top: 2px; bottom: 0;
+    right: 101px;
+    /*border: 2px solid #999999; */
+    border-radius: 20px;
+    transition: all 0.3s ease-in 0s;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 5px;
 }
 
 main {

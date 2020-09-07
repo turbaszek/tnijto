@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/red-style.css" id="style-select">
 
     <link href="https://fonts.googleapis.com/css2?family=Nosifer&family=Titillium+Web:wght@300;400&display=swap" rel="stylesheet">
 
@@ -25,9 +25,12 @@
             <div class="triangle-up"></div>
         </div>
         <div id="switch-holder">
-            <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                <label class="custom-control-label" for="customSwitch1">Toggle this switch element</label>
+            <div class="onoffswitch">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="theme-switch" tabindex="0" checked>
+                <label class="onoffswitch-label" for="theme-switch">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                </label>
             </div>
         </div>
     </header>
