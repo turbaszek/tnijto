@@ -1,7 +1,7 @@
 html, body {
     height: 100%;
     background-color: #303030;
-    display: flex;
+    /*display: flex;*/
     flex-direction: column;
 }
 
@@ -367,4 +367,53 @@ footer i:hover {
 
 #messages-wrap .messages {
     width: 90%;
+}
+
+#cover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top:0; left: 0;
+    background: #000;
+    z-index:9999;
+    font-size: 60px;
+    text-align: center;
+    padding-top: 200px;
+    color: #fff;
+}
+
+#cover-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    color: black;
+    background-color: black;
+    font-family: 'Nosifer', cursive;
+    font-size: 2.5rem;
+    animation-name: bgcolor;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease;
+}
+
+.cover-triangle-up {
+    width: 0;
+    height: 0;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-bottom: 72px solid black;
+    position: absolute;
+    left: 60px;
+    top: 28px;
+}
+
+@keyframes bgcolor {
+    from {background-color: black;}
+    to {background-color: white;}
 }

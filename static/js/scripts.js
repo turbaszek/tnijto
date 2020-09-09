@@ -1,4 +1,46 @@
-const emptyInput = "Musisz podać jakiś URL."
+    const emptyInput = "Musisz podać jakiś URL."
+    const bloodyRedTheme = "css/red-style.css"
+    const darkNightTheme = "css/dark-style.css"
+    const themeSwitch = document.getElementById("theme-switch")
+
+    window.onload = function () {
+        localStorage.getItem(themeSwitch.id) === "true"
+            ? checkThemeSwitchAndUpdateCss(bloodyRedTheme)
+            : uncheckThemeSwitchAndUpdateCss(darkNightTheme)
+
+        setTimeout(() => $("#cover").fadeOut(500), 1000);
+    }
+
+    window.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            submitForm();
+        }
+    });
+
+    document.getElementById("submit-button").addEventListener("click", function(event){
+        event.preventDefault()
+        submitForm()
+    });
+
+    document.getElementById("show-tailored-cut").addEventListener("click", function(event){
+        let icon = document.getElementById("tailored-cut-icon")
+
+        if (icon.classList.contains("fa-plus-circle")) {
+            icon.classList.replace("fa-plus-circle", "fa-minus-circle")
+
+        } else {
+            icon.classList.replace("fa-minus-circle", "fa-plus-circle")
+        }
+    });
+
+    themeSwitch.addEventListener("click", function (event){
+        let style = document.getElementById("style-select");
+
+        this.checked === true
+            ? setAndStoreTheme(style, bloodyRedTheme, this)
+            : setAndStoreTheme(style, darkNightTheme, this)
+    })
 
     function post(url, data, success) {
         let params = typeof data == 'string' ? data : Object.keys(data).map(
@@ -58,33 +100,21 @@ const emptyInput = "Musisz podać jakiś URL."
         }
     }
 
-    window.addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            submitForm();
-        }
-    });
+    function setAndStoreTheme(styleLink, theme, themeCheckbox) {
+        styleLink.setAttribute("href", theme)
+        localStorage.setItem(themeCheckbox.id, themeCheckbox.checked)
+    }
 
-    document.getElementById("submit-button").addEventListener("click", function(event){
-        event.preventDefault()
-        submitForm()
-    });
+    function checkThemeSwitchAndUpdateCss(theme) {
+        themeSwitch.setAttribute("checked", "checked")
+        updateCssLink(theme)
+    }
 
-    document.getElementById("show-tailored-cut").addEventListener("click", function(event){
-        let icon = document.getElementById("tailored-cut-icon")
+    function uncheckThemeSwitchAndUpdateCss(theme) {
+        themeSwitch.removeAttribute("checked")
+        updateCssLink(theme)
+    }
 
-        if (icon.classList.contains("fa-plus-circle")) {
-            icon.classList.replace("fa-plus-circle", "fa-minus-circle")
-
-        } else {
-            icon.classList.replace("fa-minus-circle", "fa-plus-circle")
-        }
-    });
-
-    document.getElementById("theme-switch").addEventListener("click", function (event){
-        let style = document.getElementById("style-select");
-
-        this.checked === true
-            ? style.setAttribute("href", "css/red-style.css")
-            : style.setAttribute("href", "css/dark-style.css")
-    })
+    function updateCssLink(theme) {
+        document.getElementById("style-select").setAttribute("href", theme)
+    }
