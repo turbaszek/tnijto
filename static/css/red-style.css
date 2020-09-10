@@ -126,7 +126,7 @@ main .banner {
     flex-direction: column;
     width: 960px;
     align-items: center;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 main .banner h1 {
@@ -147,7 +147,6 @@ main .banner h3 {
     width: 100%;
     font-family: 'Titillium Web', sans-serif;
     color: white;
-    margin-bottom: 20px;
 }
 
 main .banner p {
@@ -165,6 +164,7 @@ main .banner * {
 hr {
     border-bottom: 1px solid white;
     width: 15%;
+    margin: 0;
 }
 
 main .form-holder {
@@ -172,7 +172,7 @@ main .form-holder {
     flex-direction: column;
     align-items: center;
     width: 960px;
-    margin-top: 60px;
+    margin-top: 40px;
 }
 
 main form {
