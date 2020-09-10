@@ -160,7 +160,6 @@ main .banner * {
 
 hr {
     border-bottom: 1px solid white;
-    width: 960px;
     width: 15%;
 }
 
@@ -175,6 +174,7 @@ main .form-holder {
 main form {
     flex-direction: column;
     display: flex;
+    align-items: center;
     max-width: 70%;
     width: 960px;
     font-family: 'Titillium Web', sans-serif;
@@ -214,6 +214,7 @@ main form a:hover i {
 main input {
     min-width: 400px;
     max-width: 960px;
+    width: 100%;
     margin-bottom: 10px;
     height: 60px;
     border-radius: 3px;
@@ -226,6 +227,10 @@ main input {
 
     color: white;
     box-shadow: 0 0 0 white;
+}
+
+main form #tailored-cut-wrapper {
+    width: 100%;
 }
 
 main form #tailored-cut {
@@ -282,21 +287,22 @@ main input:focus {
 }
 
 main button {
+    color: #bd0020;
     height: 60px;
-    background-color: #c00032;
+    background-color: white;
+    width: 60%;
     border: 3px solid rgba(255, 255, 255, 1);
-    border-radius: 3px;
+    border-radius: 10px;
     font-size: 1.5em;
     font-family: 'Nosifer', cursive;
     transition: all 0.3s ease-in-out;
-    margin-bottom: 20px;
+    margin: 40px 0 20px 0;
 }
 
 main button:hover, button:focus {
-    background-color: white;
-    color: #bd0020;
     cursor: pointer;
     outline: none;
+    box-shadow: 0 5px 10px rgba(0,0,0, 0.5);
 }
 
 footer {
