@@ -49,8 +49,12 @@ header #switch-holder {
 }
 
 .onoffswitch {
-    position: relative; width: 140px;
-    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+    cursor: pointer;
+    position: relative;
+    width: 140px;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select: none;
 }
 .onoffswitch-checkbox {
     position: absolute;
