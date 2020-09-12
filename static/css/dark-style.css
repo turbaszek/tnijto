@@ -1,0 +1,430 @@
+html, body {
+    height: 100%;
+    background-color: #303030;
+    /*display: flex;*/
+    flex-direction: column;
+}
+
+header {
+    background-color: #424242;
+    height: 10%;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+}
+
+header #logo {
+    position: relative;
+}
+
+header #logo h1 {
+    background-color: white;
+    width: 72px;
+    height: 72px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+    font-family: 'Nosifer', cursive;
+    color: #303030;
+}
+
+.triangle-up {
+    width: 0;
+    height: 0;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-bottom: 72px solid #424242;
+    position: absolute;
+    left: 45px;
+    top: 0px;
+}
+
+header #switch-holder {
+    display: flex;
+    align-items: center;
+    height: 72px;
+}
+
+.onoffswitch {
+    cursor: pointer;
+    position: relative;
+    width: 140px;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+.onoffswitch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 20px;
+}
+.onoffswitch-inner {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block;
+    float: left;
+    width: 50%;
+    height: 39px;
+    padding: 0;
+    line-height: 39px;
+    font-size: 14px;
+    color: white;
+    font-family: Trebuchet, Arial, sans-serif;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "Bloody Red";
+    padding-left: 10px;
+    background-color: #BD0020; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "Dark Night";
+    padding-right: 10px;
+    background-color: #141313; color: #FFFFFF;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block;
+    width: 32px; height: 32px;
+    margin: 1.5px;
+    background: #FFFFFF;
+    position: absolute; top: 2px; bottom: 0;
+    right: 101px;
+    /*border: 2px solid #999999; */
+    border-radius: 20px;
+    transition: all 0.3s ease-in 0s;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 5px;
+}
+
+main {
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+main .banner {
+    display: flex;
+    flex-direction: column;
+    width: 960px;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+main .banner h1 {
+    font-family: 'Nosifer', cursive;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 6em;
+    background-color: white;
+    color: #303030;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+main .banner h3 {
+    font-size: 3em;
+    width: 100%;
+    font-family: 'Titillium Web', sans-serif;
+    color: white;
+}
+
+main .banner p {
+    font-family: 'Titillium Web', sans-serif;
+    color: white;
+    line-height: 1.5em;
+    font-size: 0.9em;
+}
+
+main .banner * {
+    max-width: 70%;
+    text-align: center;
+}
+
+hr {
+    border-bottom: 1px solid white;
+    width: 15%;
+    margin: 0;
+}
+
+main .form-holder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 960px;
+    margin-top: 40px;
+}
+
+main form {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    max-width: 70%;
+    width: 960px;
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 300;
+}
+
+main form * {
+}
+
+main form a {
+    display: block;
+    color: white;
+    text-align: center;
+    font-size: 1.2em;
+    font-family: 'Titillium Web', sans-serif;
+    margin-bottom: 10px;
+}
+
+main form a:hover, a:focus, a:visited {
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    outline: 0;
+    box-shadow: none;
+}
+
+main form a i {
+    transition-duration: 0.3s;
+    transition-property: transform;
+    margin-left: 10px;
+}
+
+main form a:hover i {
+    transform: rotate(180deg);
+}
+
+main input {
+    min-width: 400px;
+    max-width: 960px;
+    width: 100%;
+    margin-bottom: 10px;
+    height: 60px;
+    border-radius: 3px;
+    border: 3px solid white;
+    background-color: rgba(255, 255, 255, 0.0);
+    padding: 20px;
+    line-height: 1.5em;
+    font-size: 1.5em;
+    transition: all 0.3s ease-in-out;
+
+    color: white;
+    box-shadow: 0 0 0 white;
+}
+
+main form #tailored-cut-wrapper {
+    width: 100%;
+}
+
+main form #tailored-cut {
+    width: 100%;
+}
+
+main form #tailored-cut-wrapper div {
+    display: flex;
+    justify-content: space-between;
+}
+
+main form #tailored-cut-wrapper div div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main form #tailored-cut-wrapper div div p {
+    margin-right: 10px;
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 300;
+    font-size: 1.5em;
+    color: white;
+}
+
+main form #tailored-cut input {
+    width: 100%;
+}
+
+::placeholder {
+    color: #cecece;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #efefef;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: #efefef;
+}
+
+main input:hover {
+    box-shadow: 0 0 10px white;
+    cursor: pointer;
+}
+
+main input:focus {
+    box-shadow: 0 0 10px white;
+    border: 3px solid white;
+    background-color: white;
+    outline: none;
+    color: #303030;
+}
+
+main button {
+    height: 60px;
+    width: 60%;
+    background-color: white;
+    border: 3px solid rgba(255, 255, 255, 1);
+    border-radius: 10px;
+    font-size: 1.5em;
+    font-family: 'Nosifer', cursive;
+    transition: all 0.3s ease-in-out;
+    margin: 40px 0 20px 0;
+}
+
+main button:hover, button:focus {
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 5px 10px rgba(0,0,0, 0.5);
+}
+
+footer {
+    display: flex;
+    height: 5%;
+    background-color: #424242;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5em;
+}
+
+footer i {
+    box-shadow: 0 0 0 white;
+    transition: all 0.3s ease-in-out;
+    border-radius: 50%;
+}
+
+footer i:hover {
+    box-shadow: 0 0 20px white;
+}
+
+#messages-wrap {
+    width: 960px;
+    max-width: 70%;
+    border-radius: 3px;
+}
+
+#messages-wrap i {
+    width: 10%;
+    height: 100%;
+    display: flex;
+    font-size: 2em;
+    line-height: 2em;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+#error-message {
+    background-color: white;
+    width: 100%;
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+    height: 100%;
+    padding: 10px;
+    margin: 0;
+    font-size: 1.5em;
+    font-family: "Titillium Web", sans-serif;
+    color: #303030;
+}
+
+.warn {
+    background-color: #e7e707;
+}
+
+.red {
+    color: #303030;
+}
+
+.hidden {
+    display: none;
+}
+
+.flex {
+    display: flex;
+}
+
+#messages-wrap .messages {
+    width: 90%;
+}
+
+#cover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top:0; left: 0;
+    background: #000;
+    z-index:9999;
+    font-size: 60px;
+    text-align: center;
+    padding-top: 200px;
+    color: #fff;
+}
+
+#cover-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    color: black;
+    background-color: black;
+    font-family: 'Nosifer', cursive;
+    font-size: 2.5rem;
+    animation-name: bgcolor;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease;
+}
+
+.cover-triangle-up {
+    width: 0;
+    height: 0;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-bottom: 72px solid black;
+    position: absolute;
+    left: 60px;
+    top: 28px;
+}
+
+@keyframes bgcolor {
+    from {background-color: black;}
+    to {background-color: white;}
+}
